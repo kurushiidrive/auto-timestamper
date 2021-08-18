@@ -1,0 +1,6 @@
+*.mp4
+*.mkv
+*.txt
+garbage.py
+pytess_test.py
+/old/
