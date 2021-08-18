@@ -4,3 +4,5 @@
 garbage.py
 pytess_test.py
 /old/
+/uni_char/training
+build_siamese_pairs.py

@@ -1,6 +1,13 @@
 #
 # Kurushii Drive's Auto-Timestamper for UNI (KAT-UNI)
 # 18 Aug 2021
+# 
+# Notes:
+# - having problems classifying Yuzu and Orie.
+# - Yuzu sometimes gets classified as Carmine
+# - Orie sometimes gets classified as Seth
+# - these misclassifications are more likely on P2 side
+# - P2 side in general has lower best similarity than P1
 
 import cv2 as cv
 import numpy as np
@@ -10,6 +17,8 @@ from datetime import timedelta
 from skimage.metrics import structural_similarity as compare_ssim
 
 debug = True
+p1_writes = 0
+p2_writes = 0
 
 #pytesseract.pytesseract.tesseract_cmd = r'C:\\Users\\kurus\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe'
 
@@ -22,8 +31,12 @@ debug = True
 #vidstr = 'a-cho アンダーナイトーンヴァース　ランダム2on2大会（2013.8.4）-OyE1KCbbfJY.mp4'
 #vidstr = 'a-cho　アンダーナイトインヴァース　ランダム2on2大会（2013.7.15）-wYkAYKzCBl0.mp4'
 #vidstr = 'a-cho UNDER NIGHT IN-BIRTH 『BARRACUDA』 a-cho予選（2012.11.4）-9F5RjtOir-k.mkv'
-vidstr = 'a-cho　アンダーナイトインヴァース　ランダム2on2大会（2013.6.9）-rgJfuPssTyo.mp4'
-#vidstr = '10月6日 アテナ日本橋 UNI大会 予選リーグB-sm19062518.mp4'
+#vidstr = 'a-cho　アンダーナイトインヴァース　ランダム2on2大会（2013.6.9）-rgJfuPssTyo.mp4'
+vidstr = '10月6日 アテナ日本橋 UNI大会 予選リーグB-sm19062518.mp4'
+#vidstr = '10月6日 アテナ日本橋 UNI大会 予選リーグC-sm19062804.mp4'
+#vidstr = '10月6日 アテナ日本橋 UNI大会 予選リーグD-sm19062663.mp4'
+#vidstr = '12月21日 アテナ日本橋 UNIランバト 決勝トーナメント1_2-sm19648317.mp4'
+#vidstr = '12月21日 アテナ日本橋 UNIランバト 決勝トーナメント2_2-sm19648429.mp4'
 cap = cv.VideoCapture(vidstr)
 
 cnt = 0
@@ -90,6 +103,7 @@ print()
 # Load the player-side char images
 # Note that these images are all oriented wrt P2 SIDE
 dir = 'uni_char/'
+train_dir = dir + 'training/'
 names = ['Carmine', 'Eltnum', 'Gordeau', 'Hilda', 'Hyde', 'Linne', 'Merkava', 'Orie', 'Seth', 'Vatista', 'Waldstein', 'Yuzuriha']
 ext = '.png'
 char_imgs = { name : cv.cvtColor(cv.imread(dir+name+ext), cv.COLOR_BGR2GRAY) for name in names }
@@ -170,14 +184,16 @@ while cap.isOpened():
             p2_crop = frame[p2_left_v+2:p2_right_v-2, p2_left_h+2:p2_right_h-2, :]
             
             # resize and flip horizontally the P1 crop
-            p1_crop = cv.resize(p1_crop, dsize=(48,48), interpolation=cv.INTER_CUBIC)
+            p1_crop = cv.resize(p1_crop, dsize=(48,48), interpolation=cv.INTER_AREA)
             p1_crop = cv.flip(p1_crop, 1)
             
             # resize the P2 crop
-            p2_crop = cv.resize(p2_crop, dsize=(48,48), interpolation=cv.INTER_CUBIC)
+            p2_crop = cv.resize(p2_crop, dsize=(48,48), interpolation=cv.INTER_AREA)
             
-#            cv.imwrite('p1.png', p1_crop)
-#            cv.imwrite('p2.png', p2_crop)
+#            cv.imwrite(train_dir + 'p1_' + str(p1_writes) + '.png', p1_crop)
+#            cv.imwrite(train_dir + 'p2_' + str(p2_writes) + '.png', p2_crop)
+            p1_writes += 1
+            p2_writes += 1
             
             p1_crop = cv.cvtColor(p1_crop, cv.COLOR_BGR2GRAY)
             p2_crop = cv.cvtColor(p2_crop, cv.COLOR_BGR2GRAY)
