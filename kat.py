@@ -15,6 +15,8 @@ import sys
 #import pytesseract
 from datetime import timedelta
 from skimage.metrics import structural_similarity as compare_ssim
+import pafy
+import youtube_dl
 
 debug = True
 p1_writes = 0
@@ -46,8 +48,15 @@ if len(sys.argv) != 2:
     exit()
 
 vidstr = sys.argv[1]
+cap = None
 
-cap = cv.VideoCapture(vidstr)
+if "https://" in vidstr:
+    urlPafy = pafy.new(vidstr)
+    videoplay = urlPafy.getbest()
+    cap = cv.VideoCapture(videoplay.url)
+    vidstr = urlPafy.title
+else:
+    cap = cv.VideoCapture(vidstr)
 
 cnt = 0
 crop = None
