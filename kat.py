@@ -38,8 +38,15 @@ p2_writes = 0
 #vidstr = '10月6日 アテナ日本橋 UNI大会 予選リーグD-sm19062663.mp4'
 #vidstr = '12月21日 アテナ日本橋 UNIランバト 決勝トーナメント1_2-sm19648317.mp4'
 #vidstr = '12月21日 アテナ日本橋 UNIランバト 決勝トーナメント2_2-sm19648429.mp4'
-vidstr = '旧UNI 2_16蒲田対戦会 part1-sm20109087.mp4'
+#vidstr = '旧UNI 2_16蒲田対戦会 part1-sm20109087.mp4'
 #vidstr = '旧UNI 2_16蒲田対戦会 part2-sm20109217.mp4'
+
+if len(sys.argv) != 2:
+    print("Usage:\tpython {} [video]".format(sys.argv[0]))
+    exit()
+
+vidstr = sys.argv[1]
+
 cap = cv.VideoCapture(vidstr)
 
 cnt = 0
