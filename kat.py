@@ -132,7 +132,7 @@ print()
 # Note that these images are all oriented wrt P2 SIDE
 dir = 'uni_char/'
 train_dir = dir + 'training/'
-names = ['Akatsuki', 'Carmine', 'Chaos', 'Eltnum', 'Gordeau', 'Hilda', 'Hyde', 'Linne', 'Merkava', 'Orie', 'Seth', 'Vatista', 'Waldstein', 'Yuzuriha']
+names = ['Akatsuki', 'Byakuya', 'Carmine', 'Chaos', 'Eltnum', 'Enkidu', 'Gordeau', 'Hilda', 'Hyde', 'Linne', 'Londrekia', 'Merkava', 'Mika', 'Nanase', 'Orie', 'Phonon', 'Seth', 'Vatista', 'Wagner', 'Waldstein', 'Yuzuriha']
 ext = '.png'
 char_imgs = { name : cv.cvtColor(cv.imread(dir+name+ext), cv.COLOR_BGR2GRAY) for name in names }
 
@@ -297,7 +297,7 @@ print("{} - Start".format(timedelta(seconds=0)))
 for i in range(0, len(timestamps)):
     print("{} - {}".format(timedelta(seconds=round(timestamps[i])), vs[i]))
    
-print("\nTimestamps written to '" + vidstr + ".txt'")   
+print("\nTimestamps written to '" + vidstr.replace('/', ' ') + ".txt'")   
 f.close()
 
 cap.release()
