@@ -277,6 +277,7 @@ print("{} - Start".format(timedelta(seconds=0)))
 for i in range(0, len(timestamps)):
     print("{} - {}".format(timedelta(seconds=round(timestamps[i])), vs[i]))
    
+print("\nTimestamps written to '" + vidstr + ".txt'")   
 f.close()
 
 cap.release()

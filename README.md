@@ -2,9 +2,15 @@
 
 Work-in-progress Auto-Timestamper for Under Night In-Birth, written in Python using OpenCV.
 
-`kat.py` is the main source file. Run it with a path to an on-disk video file as the command line argument. For example:
+`kat.py` is the main source file. Run it with either of the following as the command line argument:
 
-`python kat.py UNI-video.mp4`
+* the path to an on-disk video file
+* the URL of a YouTube video
+
+For example:
+
+* `python kat.py UNI-video.mp4`
+* `python kat.py https://youtu.be/DRalAyuFMNg`
 
 The program will fast-forward through the video, noting down the timestamp and the character matchup when it detects that a new match has started.
 
@@ -14,4 +20,6 @@ Structural similarity is used to determine which characters are fighting at a ce
 
 Later, I plan on using a siamese neural network instead of structural similarity, which is what all of the other `*.py` files are for.
 
-[Video demonstration of early structural similarity-based program](https://youtu.be/FnLX1YT-hBQ)
+At the moment, there is support for only vanilla Under Night In-Birth videos. I will work on compatibility for UNIEL, UNIST, and UNICLR later on.
+
+[Video demonstration of early structural-similarity-based program](https://youtu.be/FnLX1YT-hBQ)
