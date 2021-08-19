@@ -17,6 +17,7 @@ from datetime import timedelta
 from skimage.metrics import structural_similarity as compare_ssim
 import pafy
 import youtube_dl
+import string
 
 debug = True
 p1_writes = 0
@@ -70,7 +71,10 @@ rve = False                     # determine when to take timestamp
 after_rve = False       # determine when to check character icons
 rve_threshold = 0.5
 
+#clause = False
+
 cmp_image = cv.imread('rve.png')
+#clause_image = cv.imread('CLAUSE.png')
 
 frame_skip = round(fps) / 5
 skip = 0
@@ -139,7 +143,9 @@ char_imgs = { name : cv.cvtColor(cv.imread(dir+name+ext), cv.COLOR_BGR2GRAY) for
 # Timestamps
 timestamps = []
 vs = []
-f = open(vidstr+'.txt', 'w')
+
+vidstr = ''.join(filter(lambda x: x in set(string.printable), vidstr))
+f = open(vidstr.replace('/', ' ')+'.txt', 'w')
 
 print(vidstr, file=f)
 print("TIMESTAMPS", file=f)
@@ -201,8 +207,15 @@ while cap.isOpened():
     if cnt % 5 == 0:
         crop = frame[rve_left_v:rve_right_v, rve_left_h:rve_right_h, :]
         crop = cv.resize(crop, dsize=(cmp_image.shape[1], cmp_image.shape[0]), interpolation=cv.INTER_CUBIC)
-        (score, diff) = compare_ssim(crop, cmp_image, full=True, multichannel=True)
-        diff = (diff * 255).astype("uint8")
+        
+#        clause_crop = frame[clause_left_v+1:clause_right_v-1, clause_left_h+1:clause_right_h-1, :]
+#        clause_crop = cv.resize(clause_crop, dsize=(clause_image.shape[1], clause_image.shape[0]), interpolation=cv.INTER_CUBIC)
+        
+        (score, _) = compare_ssim(crop, cmp_image, full=True, multichannel=True)
+#        diff = (diff * 255).astype("uint8")
+        
+#        (cl_score, _) = compare_ssim(clause_crop, clause_image, full=True, multichannel=True)
+        
         if score >= 0.4 and not rve:
             if debug:
                 print("[potential miss?]")
@@ -247,6 +260,10 @@ while cap.isOpened():
                     best_name2 = name
             
             if debug:
+#                if (rve or not after_rve) and cl_score >= 0.5:
+#                    print("Match was ongoing.")
+#                    print("SSIM: {}".format(cl_score))
+#                    print("Timestamp: {}\n".format(timedelta(seconds=time)))
                 print("P1 - {} vs {} - P2".format(best_name1, best_name2))
                 print("P1 SSIM: {}".format(best_score1))
                 print("P2 SSIM: {}\n".format(best_score2))
@@ -255,6 +272,7 @@ while cap.isOpened():
             vs.append(best_name1 + ' vs ' + best_name2)
             
             after_rve = False
+#            clause = True
             
         if score >= rve_threshold and not rve:
             if debug:
