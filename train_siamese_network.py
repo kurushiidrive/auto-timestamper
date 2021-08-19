@@ -11,7 +11,7 @@ import cv2 as cv
 from imutils import build_montages
 
 names = ['akatsuki', 'byakuya', 'carmine', 'chaos', 'eltnum', 'enkidu', 'gordeau', 'hilda', 'hyde', 'linne', 'londrekia', 'merkava', 'mika', 'nanase', 'orie', 'phonon', 'seth', 'vatista', 'wagner', 'waldstein', 'yuzuriha']
-nametocode = { names[i] : i for i in range(12) }
+nametocode = { names[i] : i for i in range(len(names)) }
 
 dir = 'uni_char/training/'
 tmpX = []
