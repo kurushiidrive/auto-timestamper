@@ -28,15 +28,18 @@ p2_writes = 0
 #vidstr = '旧UNI 2_10秋葉原対戦会 part4-sm20107916.mp4'
 #vidstr = '旧UNI 2_10秋葉原対戦会 part5-sm20108259.mp4'
 #vidstr = '旧UNI 2_10秋葉原対戦会 part6-sm20108535.mp4'
+
 #vidstr = 'a-cho アンダーナイトーンヴァース　ランダム2on2大会（2013.8.4）-OyE1KCbbfJY.mp4'
 #vidstr = 'a-cho　アンダーナイトインヴァース　ランダム2on2大会（2013.7.15）-wYkAYKzCBl0.mp4'
 #vidstr = 'a-cho UNDER NIGHT IN-BIRTH 『BARRACUDA』 a-cho予選（2012.11.4）-9F5RjtOir-k.mkv'
 #vidstr = 'a-cho　アンダーナイトインヴァース　ランダム2on2大会（2013.6.9）-rgJfuPssTyo.mp4'
-vidstr = '10月6日 アテナ日本橋 UNI大会 予選リーグB-sm19062518.mp4'
+#vidstr = '10月6日 アテナ日本橋 UNI大会 予選リーグB-sm19062518.mp4'
 #vidstr = '10月6日 アテナ日本橋 UNI大会 予選リーグC-sm19062804.mp4'
 #vidstr = '10月6日 アテナ日本橋 UNI大会 予選リーグD-sm19062663.mp4'
 #vidstr = '12月21日 アテナ日本橋 UNIランバト 決勝トーナメント1_2-sm19648317.mp4'
 #vidstr = '12月21日 アテナ日本橋 UNIランバト 決勝トーナメント2_2-sm19648429.mp4'
+vidstr = '旧UNI 2_16蒲田対戦会 part1-sm20109087.mp4'
+#vidstr = '旧UNI 2_16蒲田対戦会 part2-sm20109217.mp4'
 cap = cv.VideoCapture(vidstr)
 
 cnt = 0
@@ -114,7 +117,10 @@ vs = []
 f = open(vidstr+'.txt', 'w')
 
 print(vidstr, file=f)
-print("Timestamps:", file=f)
+print("TIMESTAMPS", file=f)
+
+# naive
+print("{} - Start".format(timedelta(seconds=0)), file=f)
 
 print("Analysing...\n")
 
@@ -250,7 +256,8 @@ while cap.isOpened():
         break
 
 
-print("\nTimestamps:")
+print("\nTIMESTAMPS")
+print("{} - Start".format(timedelta(seconds=0)))
 for i in range(0, len(timestamps)):
     print("{} - {}".format(timedelta(seconds=round(timestamps[i])), vs[i]))
    
