@@ -9,6 +9,7 @@ from tensorflow.keras.datasets import mnist
 import numpy as np
 import cv2 as cv
 from imutils import build_montages
+import sys
 
 names = ['akatsuki', 'byakuya', 'carmine', 'chaos', 'eltnum', 'enkidu', 'gordeau', 'hilda', 'hyde', 'linne', 'londrekia', 'merkava', 'mika', 'nanase', 'orie', 'phonon', 'seth', 'vatista', 'wagner', 'waldstein', 'yuzuriha']
 nametocode = { names[i] : i for i in range(len(names)) }
@@ -33,11 +34,9 @@ print("[INFO] loading MNIST dataset...")
 (trainX, trainY), (testX, testY) = mnist.load_data()
 trainX = trainX / 255.0
 testX = testX / 255.0
-
 # for adding a channel dimension to the images
 trainX = np.expand_dims(trainX, axis=-1)
 testX = np.expand_dims(testX, axis=-1)
-
 print("[INFO] preparing positive and negative pairs...")
 (pairTrain, labelTrain) = utils.make_pairs(trainX, trainY)
 (pairTest, labelTest) = utils.make_pairs(testX, testY)
@@ -70,6 +69,7 @@ model.save(config.MODEL_PATH)
 print("[INFO] plotting training history...")
 utils.plot_training(history, config.PLOT_PATH)
 
+exit()
 
 # siamese pairs visualization
 images = []
