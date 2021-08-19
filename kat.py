@@ -95,6 +95,10 @@ if debug:
 # P2 horizontal half-dist: 0.0380859375 * width
 # P2 vertical midpoint @ 0.0677083333333333 * height
 # P2 vertical half-dist: 0.0677083333333333 * height
+# CLAUSE left_h: 0.490234375 * width
+# CLAUSE left_v: 0.1319444444444444 * height
+# CLAUSE right_h: 0.5390625 * width
+# CLAUSE right_v: 0.15625 * height
    
 p1_midpoint_h = 0.0576171875 * width
 p1_midpoint_v = 0.0677083333333333 * height
@@ -117,13 +121,18 @@ rve_right_h = int(rve_midpoint_h + 0.3251953125 * width)
 rve_left_v = int(rve_midpoint_v - 0.0416666666666667 * height)
 rve_right_v = int(rve_midpoint_v + 0.0416666666666667 * height)
 
+clause_left_h = int(0.490234375 * width)
+clause_left_v = int(0.1319444444444444 * height)
+clause_right_h = int(0.5390625 * width)
+clause_right_v = int(0.15625 * height)
+
 print()
 
 # Load the player-side char images
 # Note that these images are all oriented wrt P2 SIDE
 dir = 'uni_char/'
 train_dir = dir + 'training/'
-names = ['Carmine', 'Eltnum', 'Gordeau', 'Hilda', 'Hyde', 'Linne', 'Merkava', 'Orie', 'Seth', 'Vatista', 'Waldstein', 'Yuzuriha']
+names = ['Akatsuki', 'Carmine', 'Chaos', 'Eltnum', 'Gordeau', 'Hilda', 'Hyde', 'Linne', 'Merkava', 'Orie', 'Seth', 'Vatista', 'Waldstein', 'Yuzuriha']
 ext = '.png'
 char_imgs = { name : cv.cvtColor(cv.imread(dir+name+ext), cv.COLOR_BGR2GRAY) for name in names }
 
@@ -166,6 +175,7 @@ while cap.isOpened():
     cv.rectangle(frame, (p1_left_h, p1_left_v), (p1_right_h, p1_right_v), (255, 0, 0), 2)       # P1 (blue)
     cv.rectangle(frame, (p2_left_h, p2_left_v), (p2_right_h, p2_right_v), (0, 0, 255), 2)       # P2 (red)
     cv.rectangle(frame, (rve_left_h, rve_left_v), (rve_right_h, rve_right_v), (0, 255, 0), 2)   # Recurring VOID Effect...
+    cv.rectangle(frame, (clause_left_h, clause_left_v), (clause_right_h, clause_right_v), (0, 255, 0), 1) # CLAUSE
 
     # old hardcoded values @ 512x288
 #    cv.rectangle(frame, (9, 0), (50, 39), (255, 0, 0), 2)                                       # P1 (blue)
@@ -173,8 +183,10 @@ while cap.isOpened():
 #    cv.rectangle(frame, (94, 131), (427, 155), (0, 255, 0), 2)                              # Recurring VOID Effect...
     
     
-#    if cnt == 250:
+#    if cnt == 350:
 #        cv.imwrite('tmpuni_360.png', frame)
+#    if cnt == 350:
+#        cv.imwrite('CLAUSE.png', frame[clause_left_v+1:clause_right_v-1, clause_left_h+1:clause_right_h-1, :])
     
     # for UNI, based on light testing, a similarity of 0.5 or above feels good.
     # the first time it hits 0.5, take a timestamp and set a flag.
