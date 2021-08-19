@@ -17,7 +17,6 @@ from datetime import timedelta
 from skimage.metrics import structural_similarity as compare_ssim
 import pafy
 import youtube_dl
-import string
 
 debug = True
 p1_writes = 0
@@ -51,7 +50,7 @@ if len(sys.argv) != 2:
 vidstr = sys.argv[1]
 cap = None
 
-if "https://" in vidstr:
+if "https://" in vidstr or "http://" in vidstr:
     urlPafy = pafy.new(vidstr)
     videoplay = urlPafy.getbest()
     cap = cv.VideoCapture(videoplay.url)
@@ -69,12 +68,9 @@ frame_count = 0
 
 rve = False                     # determine when to take timestamp
 after_rve = False       # determine when to check character icons
-rve_threshold = 0.5
-
-#clause = False
+rve_threshold = 0.4
 
 cmp_image = cv.imread('rve.png')
-#clause_image = cv.imread('CLAUSE.png')
 
 frame_skip = round(fps) / 5
 skip = 0
@@ -144,8 +140,7 @@ char_imgs = { name : cv.cvtColor(cv.imread(dir+name+ext), cv.COLOR_BGR2GRAY) for
 timestamps = []
 vs = []
 
-vidstr = ''.join(filter(lambda x: x in set(string.printable), vidstr))
-f = open(vidstr.replace('/', ' ')+'.txt', 'w')
+f = open(vidstr.replace('/', ' ')+'.txt', 'w', encoding='utf-8')
 
 print(vidstr, file=f)
 print("TIMESTAMPS", file=f)
@@ -207,15 +202,10 @@ while cap.isOpened():
     if cnt % 5 == 0:
         crop = frame[rve_left_v:rve_right_v, rve_left_h:rve_right_h, :]
         crop = cv.resize(crop, dsize=(cmp_image.shape[1], cmp_image.shape[0]), interpolation=cv.INTER_CUBIC)
-        
-#        clause_crop = frame[clause_left_v+1:clause_right_v-1, clause_left_h+1:clause_right_h-1, :]
-#        clause_crop = cv.resize(clause_crop, dsize=(clause_image.shape[1], clause_image.shape[0]), interpolation=cv.INTER_CUBIC)
-        
+                
         (score, _) = compare_ssim(crop, cmp_image, full=True, multichannel=True)
 #        diff = (diff * 255).astype("uint8")
-        
-#        (cl_score, _) = compare_ssim(clause_crop, clause_image, full=True, multichannel=True)
-        
+                
         if score >= 0.4 and not rve:
             if debug:
                 print("[potential miss?]")
