@@ -70,7 +70,7 @@ rve = False                     # determine when to take timestamp
 after_rve = False       # determine when to check character icons
 rve_threshold = 0.4
 
-cmp_image = cv.imread('rve.png')
+cmp_image = cv.imread('seed/rve.png')
 
 frame_skip = round(fps) / 5
 skip = 0
@@ -145,9 +145,10 @@ print()
 # Note that these images are all oriented wrt P2 SIDE
 dir = 'uni_char/'
 train_dir = dir + 'training/'
+seed_dir = dir + 'seed/'
 names = ['Akatsuki', 'Byakuya', 'Carmine', 'Chaos', 'Eltnum', 'Enkidu', 'Gordeau', 'Hilda', 'Hyde', 'Linne', 'Londrekia', 'Merkava', 'Mika', 'Nanase', 'Orie', 'Phonon', 'Seth', 'Vatista', 'Wagner', 'Waldstein', 'Yuzuriha']
 ext = '.png'
-char_imgs = { name : cv.cvtColor(cv.imread(dir+name+ext), cv.COLOR_BGR2GRAY) for name in names }
+char_imgs = { name : cv.cvtColor(cv.imread(seed_dir+name+ext), cv.COLOR_BGR2GRAY) for name in names }
 
 # Timestamps
 timestamps = []

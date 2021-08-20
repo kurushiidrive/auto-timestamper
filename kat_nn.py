@@ -54,14 +54,15 @@ siamese_nn = reconstruct_model()
 
 # RVE (global)
 rve_threshold = 0.4
-rve_cmp = cv.imread('rve.png')
+rve_cmp = cv.imread('seed/rve.png')
 
 # Load the player-side char images
 # Note that these images are all oriented wrt P2 SIDE    
 dir = 'uni_char/'
+seed_dir = dir + 'seed/'
 names = ['Akatsuki', 'Byakuya', 'Carmine', 'Chaos', 'Eltnum', 'Enkidu', 'Gordeau', 'Hilda', 'Hyde', 'Linne', 'Londrekia', 'Merkava', 'Mika', 'Nanase', 'Orie', 'Phonon', 'Seth', 'Vatista', 'Wagner', 'Waldstein', 'Yuzuriha']
 ext = '.png'
-char_imgs = { name : cv.imread(dir+name+ext)/255.0 for name in names }
+char_imgs = { name : cv.imread(seed_dir+name+ext)/255.0 for name in names }
 
 # Main loop; call each video's cap on this function to analyse them
 def loop(cap_, vidstr_):
