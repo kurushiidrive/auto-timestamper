@@ -18,7 +18,7 @@ After reaching the end of the video or upon the user pressing 'q' to quit, the p
 
 Structural similarity is used to determine which characters are fighting at a certain timestamp. The portraits are compared to "seed" images (found in `/uni_char/`), and the image with the best structural similarity (a value on [-1.0, 1.0], 1.0 being an exact match) is used to determine which character it is.
 
-Later, I plan on using a siamese neural network instead of structural similarity, which is what all of the other `*.py` files are for.
+Later, I plan on using a siamese neural network instead of structural similarity, which is what all of the other `*.py` files are for. At the moment, more training data are needed.
 
 At the moment, there is support for only vanilla Under Night In-Birth videos. I will work on compatibility for UNIEL, UNIST, and UNICLR later on.
 
