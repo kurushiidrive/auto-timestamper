@@ -8,5 +8,8 @@ MARGIN = 1
 
 BASE_OUTPUT = "output"
 
-MODEL_PATH = os.path.sep.join([BASE_OUTPUT, "siamese_model"])
-PLOT_PATH = os.path.sep.join([BASE_OUTPUT, "plot.png"])
+MODEL_NAME = 'siamese_model'
+PLOT_NAME = 'plot.png'
+
+MODEL_PATH = os.path.sep.join([BASE_OUTPUT, MODEL_NAME])
+PLOT_PATH = os.path.sep.join([BASE_OUTPUT, PLOT_NAME])
