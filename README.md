@@ -32,3 +32,4 @@ At the moment, there is support for only vanilla UNI, UNIEL, and UNICLR videos. 
 Additionally, the auto-timestamper currently works on only videos where the game takes up the entire screen (resolution of the video doesn't matter). It will likely produce inaccurate or even no results if the game is scaled within the video. This is being worked on, so please be patient.
 
 [Video demonstration of early structural-similarity-based program](https://youtu.be/FnLX1YT-hBQ)
+[Second video demonstration *w/ commentary* of structural-similarity-based program](https://youtu.be/OAD95oxNWZ4)
