@@ -18,7 +18,7 @@ dir = 'uni_char/training/'
 tmpX = []
 tmpY = []
 for name in names:
-    for count in range(1,4):
+    for count in range(1,8):
         tmpX.append(cv.imread(dir+name+'_'+str(count)+'.png'))
         tmpY.append(nametocode[name])
 tmpX = np.array(tmpX)
@@ -69,7 +69,7 @@ model.save(config.MODEL_PATH)
 print("[INFO] plotting training history...")
 utils.plot_training(history, config.PLOT_PATH)
 
-exit()
+#exit()
 
 # siamese pairs visualization
 images = []

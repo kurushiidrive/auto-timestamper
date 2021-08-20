@@ -79,6 +79,13 @@ if debug:
 
 width = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
+
+# shimazaki test - https://youtu.be/hsdtHCXqQz4 -- 588p (720p originally)
+# CROW test - https://youtu.be/upjGdzTUIAQ?t=2687 -- 588p (720p originally)
+# the following two hard-coded values (along with the additions +12 and +68) should be used for PS4 streams in the format that the above two linked videos are
+#width = 1058-12
+#height = 656-68
+
 if debug:
     print("Resolution: {}x{}".format(width, height))
 
@@ -102,29 +109,29 @@ if debug:
    
 p1_midpoint_h = 0.0576171875 * width
 p1_midpoint_v = 0.0677083333333333 * height
-p1_left_h = int(p1_midpoint_h - 0.0400390625 * width)
-p1_right_h = int(p1_midpoint_h + 0.0400390625 * width)
-p1_left_v = int(p1_midpoint_v - 0.0677083333333333 * height)
-p1_right_v = int(p1_midpoint_v + 0.0677083333333333 * height)
+p1_left_h = int(p1_midpoint_h - 0.0400390625 * width)# + 12
+p1_right_h = int(p1_midpoint_h + 0.0400390625 * width)# + 12
+p1_left_v = int(p1_midpoint_v - 0.0677083333333333 * height)# + 68
+p1_right_v = int(p1_midpoint_v + 0.0677083333333333 * height)# + 68
     
 p2_midpoint_h = 0.9404296875 * width
 p2_midpoint_v = 0.0677083333333333 * height
-p2_left_h = int(p2_midpoint_h - 0.0380859375 * width)
-p2_right_h = int(p2_midpoint_h + 0.0380859375 * width)
-p2_left_v = int(p2_midpoint_v - 0.0677083333333333 * height)
-p2_right_v = int(p2_midpoint_v + 0.0677083333333333 * height)
+p2_left_h = int(p2_midpoint_h - 0.0380859375 * width)# + 12
+p2_right_h = int(p2_midpoint_h + 0.0380859375 * width)# + 12
+p2_left_v = int(p2_midpoint_v - 0.0677083333333333 * height)# + 68
+p2_right_v = int(p2_midpoint_v + 0.0677083333333333 * height)# + 68
    
 rve_midpoint_h = 0.5087890625 * width
 rve_midpoint_v = 0.4965277777777778 * height
-rve_left_h = int(rve_midpoint_h - 0.3251953125 * width)
-rve_right_h = int(rve_midpoint_h + 0.3251953125 * width)
-rve_left_v = int(rve_midpoint_v - 0.0416666666666667 * height)
-rve_right_v = int(rve_midpoint_v + 0.0416666666666667 * height)
+rve_left_h = int(rve_midpoint_h - 0.3251953125 * width)# + 12
+rve_right_h = int(rve_midpoint_h + 0.3251953125 * width)# + 12
+rve_left_v = int(rve_midpoint_v - 0.0416666666666667 * height)# + 68
+rve_right_v = int(rve_midpoint_v + 0.0416666666666667 * height)# + 68
 
-clause_left_h = int(0.490234375 * width)
-clause_left_v = int(0.1319444444444444 * height)
-clause_right_h = int(0.5390625 * width)
-clause_right_v = int(0.15625 * height)
+clause_left_h = int(0.490234375 * width)# + 12
+clause_left_v = int(0.1319444444444444 * height)# + 68
+clause_right_h = int(0.5390625 * width)# + 12
+clause_right_v = int(0.15625 * height)# + 68
 
 print()
 
@@ -185,7 +192,7 @@ while cap.isOpened():
     
     
 #    if cnt == 350:
-#        cv.imwrite('tmpuni_360.png', frame)
+#        cv.imwrite('tmpuni_720.png', frame)
 #    if cnt == 350:
 #        cv.imwrite('CLAUSE.png', frame[clause_left_v+1:clause_right_v-1, clause_left_h+1:clause_right_h-1, :])
     
@@ -227,8 +234,8 @@ while cap.isOpened():
             # resize the P2 crop
             p2_crop = cv.resize(p2_crop, dsize=(48,48), interpolation=cv.INTER_AREA)
             
-#            cv.imwrite(train_dir + 'p1_' + str(p1_writes) + '.png', p1_crop)
-#            cv.imwrite(train_dir + 'p2_' + str(p2_writes) + '.png', p2_crop)
+            cv.imwrite(train_dir + 'p1_' + str(p1_writes) + '.png', p1_crop)
+            cv.imwrite(train_dir + 'p2_' + str(p2_writes) + '.png', p2_crop)
             p1_writes += 1
             p2_writes += 1
             
