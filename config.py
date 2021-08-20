@@ -12,4 +12,5 @@ MODEL_NAME = 'siamese_model'
 PLOT_NAME = 'plot.png'
 
 MODEL_PATH = os.path.sep.join([BASE_OUTPUT, MODEL_NAME])
+MODEL_WEIGHTS_PATH = os.path.sep.join([BASE_OUTPUT, MODEL_NAME + '_weights'])
 PLOT_PATH = os.path.sep.join([BASE_OUTPUT, PLOT_NAME])

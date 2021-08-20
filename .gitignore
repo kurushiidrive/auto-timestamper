@@ -6,6 +6,5 @@ pytess_test.py
 /old/
 /uni_char/training
 /uni_char/test
-/output
 /__pycache__
 tmpuni*.png

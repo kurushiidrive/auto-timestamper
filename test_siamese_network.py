@@ -3,6 +3,11 @@ import numpy as np
 import utils
 import config
 from tensorflow import keras
+from siamese_network import build_siamese_model
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import Input
+from tensorflow.keras.layers import Lambda
 
 names = ['akatsuki', 'byakuya', 'carmine', 'chaos', 'eltnum', 'enkidu', 'gordeau', 'hilda', 'hyde', 'linne', 'londrekia', 'merkava', 'mika', 'nanase', 'orie', 'phonon', 'seth', 'vatista', 'wagner', 'waldstein', 'yuzuriha']
 nametocode = { names[i] : i for i in range(len(names)) }
@@ -20,7 +25,22 @@ y_test = np.array(tmpY)
 
 (pair_test, label_test) = utils.make_pairs(X_test, y_test)
 
-model = keras.models.load_model(config.MODEL_NAME)
+
+# rebuild model
+imgA = Input(shape=config.IMG_SHAPE)
+imgB = Input(shape=config.IMG_SHAPE)
+featureExtractor = build_siamese_model(config.IMG_SHAPE)
+featsA = featureExtractor(imgA)
+featsB = featureExtractor(imgB)
+
+distance = Lambda(utils.euclidean_distance)([featsA, featsB])
+outputs = Dense(1, activation='sigmoid')(distance)
+model = Model(inputs=[imgA, imgB], outputs=outputs)
+
+model.compile(loss=utils.loss(margin=config.MARGIN), optimizer='RMSprop', metrics=['acc'])
+model.load_weights(config.MODEL_WEIGHTS_PATH)
+
+#model = keras.models.load_model(config.MODEL_NAME)
 
 x_test_1 = pair_test[:, 0]
 x_test_2 = pair_test[:, 1]

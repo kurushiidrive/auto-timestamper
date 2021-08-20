@@ -64,7 +64,8 @@ history = model.fit(
     epochs=config.EPOCHS)
     
 print("[INFO] saving siamese model...")
-model.save(config.MODEL_PATH)
+#model.save(config.MODEL_PATH)
+model.save_weights(config.MODEL_WEIGHTS_PATH)
 
 print("[INFO] plotting training history...")
 utils.plot_training(history, config.PLOT_PATH)
