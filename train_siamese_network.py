@@ -18,7 +18,7 @@ dir = 'uni_char/training/'
 tmpX = []
 tmpY = []
 for name in names:
-    for count in range(1,8):
+    for count in range(1,10):
         tmpX.append(cv.imread(dir+name+'_'+str(count)+'.png'))
         tmpY.append(nametocode[name])
 tmpX = np.array(tmpX)
