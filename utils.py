@@ -1,4 +1,5 @@
 import tensorflow.keras.backend as K
+import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -38,6 +39,15 @@ def euclidean_distance(vectors):
     squared_sum = K.sum(K.square(features_a - features_b), axis=1, keepdims=True)
     
     return K.sqrt(K.maximum(squared_sum, K.epsilon()))
+    
+def loss(margin=1):
+    def contrastive_loss(y_true, y_pred):
+        square_pred = tf.math.square(y_pred)
+        margin_square = tf.math.square(tf.math.maximum(margin - (y_pred), 0))
+        return tf.math.reduce_mean(
+            (1 - y_true) * square_pred + (y_true) * margin_square
+        )
+    return contrastive_loss
     
 def plot_training(H, plotPath):
     plt.style.use("ggplot")

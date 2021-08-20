@@ -54,7 +54,7 @@ outputs = Dense(1, activation='sigmoid')(distance)
 model = Model(inputs=[imgA, imgB], outputs=outputs)
 
 print("[INFO] compiling model...")
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
+model.compile(loss=utils.loss(margin=config.MARGIN), optimizer='RMSprop', metrics=['acc'])    # rmsprop or adam optimizer; use contrastive loss as loss function, instead of binary crossentropy?
 
 print("[INFO] training model...")
 history = model.fit(
@@ -69,7 +69,7 @@ model.save(config.MODEL_PATH)
 print("[INFO] plotting training history...")
 utils.plot_training(history, config.PLOT_PATH)
 
-#exit()
+exit()
 
 # siamese pairs visualization
 images = []
