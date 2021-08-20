@@ -274,6 +274,8 @@ while cap.isOpened():
             
             print("{} vs {}".format(best_name1, best_name2), file=f)
             vs.append(best_name1 + ' vs ' + best_name2)
+#            cv.putText(frame, best_name1, (p1_right_h, p1_left_v-10), cv.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 0), 2)
+#            cv.putText(frame, best_name2, (p2_left_h-10, p2_left_v-10), cv.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
             
             after_rve = False
 #            clause = True

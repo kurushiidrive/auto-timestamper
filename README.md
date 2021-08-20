@@ -20,11 +20,15 @@ Structural similarity is used to determine which characters are fighting at a ce
 
 Later, I plan on using a siamese neural network instead of structural similarity, which is what all of the other `*.py` files are for.
 
+However, note that currently, the **structural similarity** method (`kat.py`) is more accurate than the **siamese neural network** (`kat_nn.py`).
+
 More training data are needed to improve the performance of the siamese NN, but if you would like to try it yourself, do the following:
 
 * ~~(optional) train the NN with `python train_siamese_network.py`~~ (can't be done until I add the training images dir to the repo)
 * run the NN-based auto-timestamper with `python kat_nn.py [video]`
 
-At the moment, there is support for only vanilla Under Night In-Birth videos. I will work on compatibility for UNIEL, UNIST, and UNICLR later on.
+At the moment, there is support for only vanilla UNI, UNIEL, and UNICLR videos. I will work on compatibility for UNIST later on.
+
+Additionally, the auto-timestamper currently works on only videos where the game takes up the entire screen (resolution of the video doesn't matter). It will likely produce inaccurate or even no results if the game is scaled within the video. This is being worked on, so please be patient.
 
 [Video demonstration of early structural-similarity-based program](https://youtu.be/FnLX1YT-hBQ)
