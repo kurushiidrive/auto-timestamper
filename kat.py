@@ -83,8 +83,14 @@ height = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))
 # shimazaki test - https://youtu.be/hsdtHCXqQz4 -- 588p (720p originally)
 # CROW test - https://youtu.be/upjGdzTUIAQ?t=2687 -- 588p (720p originally)
 # the following two hard-coded values (along with the additions +12 and +68) should be used for PS4 streams in the format that the above two linked videos are
+# add the second number in the below two statements to the corresponding left and right fields further down below.
+# for example, 12 should be added to _h, and 68 added to _v
 #width = 1058-12
 #height = 656-68
+
+# clearlamp CLR (old) test -- https://youtu.be/ipSNtSEEVA0 (720p orig)
+#width = 1280 - 244
+#height = 583
 
 if debug:
     print("Resolution: {}x{}".format(width, height))
@@ -191,7 +197,7 @@ while cap.isOpened():
 #    cv.rectangle(frame, (94, 131), (427, 155), (0, 255, 0), 2)                              # Recurring VOID Effect...
     
     
-#    if cnt == 350:
+#    if cnt == 250:
 #        cv.imwrite('tmpuni_720.png', frame)
 #    if cnt == 350:
 #        cv.imwrite('CLAUSE.png', frame[clause_left_v+1:clause_right_v-1, clause_left_h+1:clause_right_h-1, :])
