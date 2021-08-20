@@ -22,7 +22,7 @@ Later, I plan on using a siamese neural network instead of structural similarity
 
 More training data are needed to improve the performance of the siamese NN, but if you would like to try it yourself, do the following:
 
-* (optional) train the NN with `python train_siamese_network.py`
+* ~~(optional) train the NN with `python train_siamese_network.py`~~ (can't be done until I add the training images dir to the repo)
 * run the NN-based auto-timestamper with `python kat_nn.py [video]`
 
 At the moment, there is support for only vanilla Under Night In-Birth videos. I will work on compatibility for UNIEL, UNIST, and UNICLR later on.
