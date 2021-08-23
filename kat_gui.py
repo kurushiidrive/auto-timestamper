@@ -41,7 +41,7 @@ root.update()
 labelText = tkinter.StringVar()
 label = tkinter.Entry(root, textvariable=labelText, justify='center')
 
-# Browse/Paste link button
+# Dropdown Text -- YouTube URL or Local File
 buttonText = tkinter.StringVar(root)
 buttonText.set("YouTube URL")
 
@@ -286,9 +286,12 @@ def divide(cap_, vidstr_):
     print("\nTimestamps written to '" + vidstr_.replace('/', ' ') + ".txt'")   
     f.close()
     
+    # Cleanup
     cap_.release()
     cv.destroyAllWindows()
     execution = False
+    
+    # reenable starting a new timestamping session
     start.config(command=preinit)
 
 # OS file dialog to obtain video file from on disk
@@ -309,8 +312,9 @@ def ddm_check(selection):
         button.config(text='Browse', command=open_file)
         instructions.config(text=instructionsTextLcl)
 
-# Execute BEFORE calling divide() to timestamp
+# Execute BEFORE calling divide()
 def preinit():
+    # disable starting a new timestamping session
     start.config(command=tkinter.NONE)
     
     vidstr = ''
