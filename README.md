@@ -36,3 +36,9 @@ Additionally, the auto-timestamper currently works on only videos where the game
 [Video demonstration of early structural-similarity-based program](https://youtu.be/FnLX1YT-hBQ)
 
 [Second video demonstration *w/ commentary* of structural-similarity-based program](https://youtu.be/OAD95oxNWZ4)
+
+Sample videos to test the auto-timestamper on:
+* [旧UNI 2 16蒲田対戦会 part2 sm20109217](https://youtu.be/DRalAyuFMNg)
+* [『アンダーナイトインヴァース エクセレイト』シングル 西セガ 4月23日](https://youtu.be/p3oiT4R-f6U)
+* [『アンダーナイトインヴァース エクセレイト』3on3 西セガ 4月19日 part.3](https://youtu.be/6l41BlbkmLQ)
+* [11月15日 アテナ日本橋 UNIランバト 予選リーグ1 sm19406595](https://youtu.be/qRaqwvV7wGU)
