@@ -12,6 +12,8 @@ For example:
 * `python kat.py UNI-video.mp4`
 * `python kat.py https://youtu.be/DRalAyuFMNg`
 
+If you prefer a graphical interface, `kat_gui.py` is the GUI version. To run it, simply do `python kat_gui.py`.
+
 The program will fast-forward through the video, noting down the timestamp and the character matchup when it detects that a new match has started.
 
 After reaching the end of the video or upon the user pressing 'q' to quit, the program will write to console/a text file the running timestamps for the matches it detected before program termination.
@@ -32,4 +34,5 @@ At the moment, there is support for only vanilla UNI, UNIEL, and UNICLR videos. 
 Additionally, the auto-timestamper currently works on only videos where the game takes up the entire screen (resolution of the video doesn't matter). It will likely produce inaccurate or even no results if the game is scaled within the video. This is being worked on, so please be patient.
 
 [Video demonstration of early structural-similarity-based program](https://youtu.be/FnLX1YT-hBQ)
+
 [Second video demonstration *w/ commentary* of structural-similarity-based program](https://youtu.be/OAD95oxNWZ4)
