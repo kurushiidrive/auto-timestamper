@@ -20,7 +20,7 @@ For example:
 * `python kat.py UNI-video.mp4`
 * `python kat.py https://youtu.be/DRalAyuFMNg`
 
-If you prefer a graphical interface, `kat_gui.py` is the GUI version. To run it, simply do `python kat_gui.py`.
+If you prefer a **graphical interface**, `kat_gui.py` is the GUI version. To run it, simply do `python kat_gui.py`.
 
 ## Brief explanation on how it works
 
