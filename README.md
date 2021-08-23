@@ -7,7 +7,7 @@ Work-in-progress Auto-Timestamper for Under Night In-Birth VODs, written in Pyth
 * Clone the repo to a directory of your liking
 * `cd` into that directory
 * Run `python -m venv env` to create a virtualenv
-* Run `.\env\Scripts\activate.bat` to "enter" the virtualenv (if you're on Linux, do `./env/Scripts/activate` instead)
+* Run `.\env\Scripts\activate.bat` to "enter" the virtualenv (if you're on Linux, do `./env/bin/activate` instead, but first make sure `activate` has execute permissions; can do this with `chmod u+x ./env/bin/activate`)
 * Run `pip install -r requirements.txt` (installs required modules into virtualenv)
 
 After completing the above steps, run `python kat.py` with either of the following as the command line argument:

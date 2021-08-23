@@ -5,11 +5,22 @@ from tkinter import scrolledtext
 import cv2 as cv
 import numpy as np
 import sys
+import os               # for pyinstaller onefile
 from datetime import timedelta
 from skimage.metrics import structural_similarity as compare_ssim
 import pafy
 import youtube_dl
 import threading
+
+# https://stackoverflow.com/questions/51060894/adding-a-data-file-in-pyinstaller-using-the-onefile-option
+def resource_path(relative_path):
+    ''' Get absolute path to resource '''
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    
+    return os.path.join(base_path, relative_path)
 
 debug = True            # verbose debug output flag
 pack = False            # create the debugOutput window only once
@@ -19,7 +30,7 @@ cancel = False          # flag for whether video processing has been cancelled
 
 # RVE (global)
 rve_threshold = 0.4
-rve_cmp = cv.imread('seed/rve.png')
+rve_cmp = cv.imread(resource_path('seed/rve.png'))
 
 # Load the player-side char images
 # Note that these images are all oriented wrt P2 SIDE    
@@ -27,7 +38,7 @@ dir = 'uni_char/'
 seed_dir = dir + 'seed/'
 names = ['Akatsuki', 'Byakuya', 'Carmine', 'Chaos', 'Eltnum', 'Enkidu', 'Gordeau', 'Hilda', 'Hyde', 'Linne', 'Londrekia', 'Merkava', 'Mika', 'Nanase', 'Orie', 'Phonon', 'Seth', 'Vatista', 'Wagner', 'Waldstein', 'Yuzuriha']
 ext = '.png'
-char_imgs = { name : cv.imread(seed_dir+name+ext) for name in names }
+char_imgs = { name : cv.imread(resource_path(seed_dir+name+ext)) for name in names }
 
 
 # GUI
@@ -86,7 +97,7 @@ def on_exit():
     root.destroy()
 
 # Auto-timestamping function        
-def divide(cap_, vidstr_):
+def divide(cap_, vidstr_, ytmode):
     
     global execution
     global cancel
@@ -143,7 +154,12 @@ def divide(cap_, vidstr_):
     # Timestamps
     timestamps = []
     vs = []
-    f = open(vidstr_.replace('/', ' ')+'.txt', 'w', encoding='utf-8')
+    fname = ''
+    if ytmode:
+        fname = vidstr_.replace('/', ' ')+'.txt'
+    else:
+        fname = os.path.basename(vidstr_+'.txt')
+    f = open(resource_path(fname), 'w', encoding='utf-8')
     print(vidstr_, file=f)
     print("TIMESTAMPS", file=f)
     
@@ -283,7 +299,7 @@ def divide(cap_, vidstr_):
     for i in range(0, len(timestamps)):
         print("{} - {}".format(timedelta(seconds=round(timestamps[i])), vs[i]))
 
-    print("\nTimestamps written to '" + vidstr_.replace('/', ' ') + ".txt'")   
+    print("\nTimestamps written to '" + fname)   
     f.close()
     
     # Cleanup
@@ -326,6 +342,8 @@ def preinit():
     
     global pack
     
+    ytmode = True # YouTube URL
+    
     if not pack:
         debugOutput.pack(expand=True, fill='both', side=tkinter.BOTTOM)
         pl = PrintLogger(debugOutput)
@@ -341,12 +359,14 @@ def preinit():
         videoplay = urlPafy.getbest()
         cap = cv.VideoCapture(videoplay.url)
         vidstr = urlPafy.title
+        ytmode = True
     else:
         cap = cv.VideoCapture(vidstr)
+        ytmode = False
         
     if cap.isOpened():
         cancel = False
-        thrd = threading.Thread(target=divide, args=(cap, vidstr))
+        thrd = threading.Thread(target=divide, args=(cap, vidstr, ytmode))
         thrd.start()
         execution = True
     else:
