@@ -1,8 +1,16 @@
 # UNI Auto-Timestamper
 
-Work-in-progress Auto-Timestamper for Under Night In-Birth, written in Python using OpenCV.
+Work-in-progress Auto-Timestamper for Under Night In-Birth VODs, written in Python using primarily OpenCV.
 
-`kat.py` is the main source file. Run it with either of the following as the command line argument:
+`kat.py` is the main source file. If you wish to run it (or any other of the Python source files), make sure you have Python 3 on your system. You can setup a virtualenv for the project through the following commands:
+
+* Clone the repo to a directory of your liking
+* `cd` into that directory
+* Run `python -m venv env` to create a virtualenv
+* Run `.\env\Scripts\activate.bat` to "enter" the virtualenv (if you're on Linux, do `./env/Scripts/activate` instead)
+* Run `pip install -r requirements.txt` (installs required modules into virtualenv)
+
+After completing the above steps, run `python kat.py` with either of the following as the command line argument:
 
 * the path to an on-disk video file
 * the URL of a YouTube video
@@ -16,13 +24,13 @@ If you prefer a graphical interface, `kat_gui.py` is the GUI version. To run it,
 
 The program will fast-forward through the video, noting down the timestamp and the character matchup when it detects that a new match has started.
 
-After reaching the end of the video or upon the user pressing 'q' to quit, the program will write to console/a text file the running timestamps for the matches it detected before program termination.
+After reaching the end of the video or upon the user pressing 'q' to quit (or clicking the 'Cancel' button for the GUI app), the program will write to console/a text file the running timestamps for the matches it detected before termination.
 
 Structural similarity is used to determine which characters are fighting at a certain timestamp. The portraits are compared to "seed" images (found in `/uni_char/seed/`), and the image with the best structural similarity (a value on [-1.0, 1.0], 1.0 being an exact match) is used to determine which character it is.
 
 Later, I plan on using a siamese neural network instead of structural similarity, which is what all of the other `*.py` files are for.
 
-However, note that currently, the **structural similarity** method (`kat.py`) is more accurate than the **siamese neural network** (`kat_nn.py`).
+However, note that currently, the **structural similarity** method (`kat.py`, `kat_gui.py`) is more accurate than the **siamese neural network** (`kat_nn.py`).
 
 More training data are needed to improve the performance of the siamese NN, but if you would like to try it yourself, do the following:
 

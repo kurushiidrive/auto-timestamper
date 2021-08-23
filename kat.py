@@ -199,7 +199,7 @@ while cap.isOpened():
     
     
 #    if cnt == 250:
-#        cv.imwrite('tmpuni_720.png', frame)
+#        cv.imwrite('tmpuni_360.png', frame)
 #    if cnt == 350:
 #        cv.imwrite('CLAUSE.png', frame[clause_left_v+1:clause_right_v-1, clause_left_h+1:clause_right_h-1, :])
     
