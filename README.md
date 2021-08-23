@@ -1,6 +1,6 @@
 # UNI Auto-Timestamper
 
-Work-in-progress Auto-Timestamper for Under Night In-Birth VODs, written in Python using primarily OpenCV.
+Work-in-progress Auto-Timestamper for Under Night In-Birth VODs, written in Python using OpenCV.
 
 `kat.py` is the main source file. If you wish to run it (or any other of the Python source files), make sure you have Python 3 on your system. You can setup a virtualenv for the project through the following commands:
 
@@ -44,6 +44,8 @@ More training data are needed to improve the performance of the siamese NN, but 
 At the moment, there is support for only vanilla UNI, UNIEL, and UNICLR videos. I will work on compatibility for UNIST later on.
 
 Additionally, the auto-timestamper currently works on only videos where the game takes up the entire screen (resolution of the video doesn't matter). It will likely produce inaccurate or even no results if the game is scaled within the video. This is being worked on, so please be patient.
+
+Finally, at the moment I am taking a naïve approach when it comes to determining the start of a new match. All that's looked for is "Recurring VOID Effect...", so if that does not appear before the start of a new match, then the auto-timestamper won't detect that match. I am thinking of a more robust way of tackling this, but if you have suggestions let me know.
 
 [Video demonstration of early structural-similarity-based program](https://youtu.be/FnLX1YT-hBQ)
 
