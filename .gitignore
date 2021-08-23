@@ -1,10 +1,15 @@
 *.mp4
 *.mkv
 *.txt
+!requirements.txt
+*.spec
 garbage.py
 pytess_test.py
 /old/
 /uni_char/training
 /uni_char/test
 /__pycache__
+/build
+/dist
+/env
 tmpuni*.png
