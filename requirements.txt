@@ -2,7 +2,6 @@ absl-py==0.13.0
 astor==0.8.1
 cached-property==1.5.2
 cycler==0.10.0
-dataclasses==0.8
 decorator==4.4.2
 gast==0.5.2
 google-pasta==0.2.0
