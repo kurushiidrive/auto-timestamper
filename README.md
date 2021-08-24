@@ -51,6 +51,8 @@ Finally, at the moment I am taking a naïve approach when it comes to determinin
 
 [Second video demonstration *w/ commentary* of structural-similarity-based program](https://youtu.be/OAD95oxNWZ4)
 
+[KAT GUI v1.00 demonstration](https://youtu.be/ZIcjldFUlek)
+
 Sample videos to test the auto-timestamper on:
 * [旧UNI 2 16蒲田対戦会 part2 sm20109217](https://youtu.be/DRalAyuFMNg)
 * [『アンダーナイトインヴァース エクセレイト』シングル 西セガ 4月23日](https://youtu.be/p3oiT4R-f6U)
