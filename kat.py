@@ -68,7 +68,7 @@ frame_count = 0
 
 rve = False                     # determine when to take timestamp
 after_rve = False       # determine when to check character icons
-rve_threshold = 0.4
+rve_threshold = 0.25 #0.4   # testing more lenience on rve if game isn't scaled properly
 
 cmp_image = cv.imread('seed/rve.png')
 
@@ -220,7 +220,7 @@ while cap.isOpened():
         (score, _) = compare_ssim(crop, cmp_image, full=True, multichannel=True)
 #        diff = (diff * 255).astype("uint8")
                 
-        if score >= 0.4 and not rve:
+        if score >= 0.1 and not rve:
             if debug:
                 print("[potential miss?]")
                 print("SSIM: {}".format(score))
