@@ -299,7 +299,7 @@ def divide(cap_, vidstr_, ytmode):
     for i in range(0, len(timestamps)):
         print("{} - {}".format(timedelta(seconds=round(timestamps[i])), vs[i]))
 
-    print("\nTimestamps written to '" + fname)   
+    print("\nTimestamps written to '" + fname + "'")   
     f.close()
     
     # Cleanup
