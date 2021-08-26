@@ -161,7 +161,7 @@ def divide(cap_, vidstr_, ytmode):
     vs = []
     fname = ''
     if ytmode:
-        fname = vidstr_.replace('/', ' ')+'.txt'
+        fname = vidstr_.replace('/', ' ').replace(':', ' ')+'.txt'
     else:
         fname = os.path.basename(vidstr_+'.txt')
     f = open(resource_path(fname), 'w', encoding='utf-8')

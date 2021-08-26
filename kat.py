@@ -158,7 +158,7 @@ locd = np.array(locd)
 timestamps = []
 vs = []
 
-f = open(vidstr.replace('/', ' ')+'.txt', 'w', encoding='utf-8')
+f = open(vidstr.replace('/', ' ').replace(':', ' ')+'.txt', 'w', encoding='utf-8')
 
 print(vidstr, file=f)
 print("TIMESTAMPS", file=f)
@@ -245,8 +245,8 @@ while cap.isOpened():
             # resize the P2 crop
             p2_crop = cv.resize(p2_crop, dsize=(48,48), interpolation=cv.INTER_AREA)
             
-#            cv.imwrite(train_dir + 'p1_' + str(p1_writes) + '.png', p1_crop)
-#            cv.imwrite(train_dir + 'p2_' + str(p2_writes) + '.png', p2_crop)
+#            cv.imwrite(seed_dir + 'p1_' + str(p1_writes) + '.png', p1_crop)
+#            cv.imwrite(seed_dir + 'p2_' + str(p2_writes) + '.png', p2_crop)
             p1_writes += 1
             p2_writes += 1
             
@@ -328,7 +328,7 @@ print("{} - Start".format(timedelta(seconds=0)))
 for i in range(0, len(timestamps)):
     print("{} - {}".format(timedelta(seconds=round(timestamps[i])), vs[i]))
    
-print("\nTimestamps written to '" + vidstr.replace('/', ' ') + ".txt'")   
+print("\nTimestamps written to '" + vidstr.replace('/', ' ').replace(':', ' ') + ".txt'")   
 f.close()
 
 cap.release()
