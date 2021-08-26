@@ -2,6 +2,12 @@
 
 Work-in-progress Auto-Timestamper for Under Night In-Birth VODs, written in Python using OpenCV.
 
+# GUI app download
+
+You can download KAT GUI, which is the graphical-interface-based auto-timestamper, from the [releases page](https://github.com/kurushiidrive/auto-timestamper/releases). It is recommended to get the latest version available. Instructions for it are in INSTRUCTIONS.txt in the zip. 
+
+# For advanced users
+
 `kat.py` is the main source file. If you wish to run it (or any other of the Python source files), make sure you have Python 3 on your system. You can setup a virtualenv for the project through the following commands:
 
 * Clone the repo to a directory of your liking
@@ -28,7 +34,7 @@ The program will fast-forward through the video, noting down the timestamp and t
 
 After reaching the end of the video or upon the user pressing 'q' to quit (or clicking the 'Cancel' button for the GUI app), the program will write to console/a text file the running timestamps for the matches it detected before termination.
 
-Structural similarity is used to determine which characters are fighting at a certain timestamp. The character portraits are compared to "seed" images (found in `/uni_char/seed/`), and the image with the best structural similarity (a value on [-1.0, 1.0], 1.0 being an exact match) is used to determine which character it is.
+Structural similarity is used to determine which characters are fighting at a certain timestamp. The character portraits are compared to "seed" images (found in `/uni_char/seed/` and `/uni_char/training/`), and the image with the best structural similarity (a value on [-1.0, 1.0], 1.0 being an exact match) is used to determine which character it is.
 
 Later, I plan on using a siamese neural network instead of structural similarity, which is what all of the other `*.py` files are for.
 
@@ -36,7 +42,7 @@ However, note that currently, the **structural similarity** method (`kat.py`, `k
 
 More training data are needed to improve the performance of the siamese NN, but if you would like to try it yourself, do the following:
 
-* ~~(optional) train the NN with `python train_siamese_network.py`~~ (can't be done until I add the training images dir to the repo)
+* (optional) train the NN with `python train_siamese_network.py` ~~(can't be done until I add the training images dir to the repo)~~
 * run the NN-based auto-timestamper with `python kat_nn.py [video]`
 
 ## Limitations, Demonstrations, and Samples
