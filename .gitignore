@@ -5,6 +5,7 @@
 *.spec
 garbage.py
 pytess_test.py
+pytube_test.py
 /old/
 /uni_char/test
 /__pycache__
