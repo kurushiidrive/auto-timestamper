@@ -29,16 +29,21 @@ execution = False       # flag for whether video is currently being processed
 cancel = False          # flag for whether video processing has been cancelled
 
 # RVE (global)
-rve_threshold = 0.4
+rve_threshold = 0.25
 rve_cmp = cv.imread(resource_path('seed/rve.png'))
 
 # Load the player-side char images
 # Note that these images are all oriented wrt P2 SIDE    
 dir = 'uni_char/'
+train_dir = dir + 'training/'
 seed_dir = dir + 'seed/'
 names = ['Akatsuki', 'Byakuya', 'Carmine', 'Chaos', 'Eltnum', 'Enkidu', 'Gordeau', 'Hilda', 'Hyde', 'Linne', 'Londrekia', 'Merkava', 'Mika', 'Nanase', 'Orie', 'Phonon', 'Seth', 'Vatista', 'Wagner', 'Waldstein', 'Yuzuriha']
 ext = '.png'
-char_imgs = { name : cv.imread(resource_path(seed_dir+name+ext)) for name in names }
+# list of "char_imgs" dictionaries; each list element is a dictionary containing each character's CHAR_X.png, where X is on [1, 20]
+locd = [ { name : cv.imread(resource_path(train_dir+name.lower()+'_'+str(num)+ext)) for name in names } for num in range(1, 21) ]
+locd = np.array(locd)
+#char_imgs = { name : cv.imread(resource_path(seed_dir+name+ext)) for name in names }
+#locd.append(char_imgs)
 
 
 # GUI
@@ -213,7 +218,7 @@ def divide(cap_, vidstr_, ytmode):
                     
             (score, _) = compare_ssim(rve_crop, rve_cmp, full=True, multichannel=True)
                     
-            if score >= 0.4 and not rve:
+            if score >= 0.2 and not rve:
                 if debug:
                     print("[potential miss?]")
                     print("SSIM: {}".format(score))
@@ -246,8 +251,19 @@ def divide(cap_, vidstr_, ytmode):
                 best_name1 = ''
                 best_name2 = ''
                 for name in names:
-                    (p1_score, _) = compare_ssim(p1_crop, char_imgs[name], full=True, multichannel=True)
-                    (p2_score, _) = compare_ssim(p2_crop, char_imgs[name], full=True, multichannel=True)
+                    p1_score = 0
+                    p2_score = 0
+                    for imgnum in range(20):
+                        (tmp1_score, _) = compare_ssim(p1_crop, locd[imgnum][name], full=True, multichannel=True)
+                        (tmp2_score, _) = compare_ssim(p2_crop, locd[imgnum][name], full=True, multichannel=True)
+                        p1_score += tmp1_score
+                        p2_score += tmp2_score
+                    p1_score /= 20
+                    p2_score /= 20
+                
+#                   (p1_score, _) = compare_ssim(p1_crop, char_imgs[name], full=True, multichannel=True)
+#                   (p2_score, _) = compare_ssim(p2_crop, char_imgs[name], full=True, multichannel=True)
+
 #                    cur_char = np.expand_dims(char_imgs[name], axis=0)
 #                    p1_score = siamese_nn.predict([p1_crop, cur_char])[0][0]
 #                    p2_score = siamese_nn.predict([p2_crop, cur_char])[0][0]
