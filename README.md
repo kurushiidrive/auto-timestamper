@@ -2,11 +2,11 @@
 
 Work-in-progress Auto-Timestamper for Under Night In-Birth VODs, written in Python using OpenCV.
 
-# GUI app download
+## GUI app download
 
 You can download KAT GUI, which is the graphical-interface-based auto-timestamper, from the [releases page](https://github.com/kurushiidrive/auto-timestamper/releases). It is recommended to get the latest version available. Instructions for it are in INSTRUCTIONS.txt in the zip. 
 
-# For advanced users
+## For advanced users
 
 `kat.py` is the main source file. If you wish to run it (or any other of the Python source files), make sure you have Python 3 on your system. You can setup a virtualenv for the project through the following commands:
 
