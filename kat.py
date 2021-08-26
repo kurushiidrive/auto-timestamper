@@ -148,7 +148,11 @@ train_dir = dir + 'training/'
 seed_dir = dir + 'seed/'
 names = ['Akatsuki', 'Byakuya', 'Carmine', 'Chaos', 'Eltnum', 'Enkidu', 'Gordeau', 'Hilda', 'Hyde', 'Linne', 'Londrekia', 'Merkava', 'Mika', 'Nanase', 'Orie', 'Phonon', 'Seth', 'Vatista', 'Wagner', 'Waldstein', 'Yuzuriha']
 ext = '.png'
-char_imgs = { name : cv.cvtColor(cv.imread(seed_dir+name+ext), cv.COLOR_BGR2GRAY) for name in names }
+# list of "char_imgs" dictionaries; each list element is a dictionary containing each character's CHAR_X.png, where X is on [1, 20]
+locd = [ { name : cv.cvtColor(cv.imread(train_dir+name.lower()+'_'+str(num)+ext), cv.COLOR_BGR2GRAY) for name in names } for num in range(1, 21) ]
+locd = np.array(locd)
+#char_imgs = { name : cv.cvtColor(cv.imread(seed_dir+name+ext), cv.COLOR_BGR2GRAY) for name in names }
+#locd.append(char_imgs)
 
 # Timestamps
 timestamps = []
@@ -220,7 +224,7 @@ while cap.isOpened():
         (score, _) = compare_ssim(crop, cmp_image, full=True, multichannel=True)
 #        diff = (diff * 255).astype("uint8")
                 
-        if score >= 0.1 and not rve:
+        if score >= 0.2 and not rve:
             if debug:
                 print("[potential miss?]")
                 print("SSIM: {}".format(score))
@@ -254,8 +258,19 @@ while cap.isOpened():
             best_name1 = ''
             best_name2 = ''
             for name in names:
-                (p1_score, _) = compare_ssim(p1_crop, char_imgs[name], full=True, multichannel=True)
-                (p2_score, _) = compare_ssim(p2_crop, char_imgs[name], full=True, multichannel=True)
+                p1_score = 0
+                p2_score = 0
+                for imgnum in range(20):
+                    (tmp1_score, _) = compare_ssim(p1_crop, locd[imgnum][name], full=True, multichannel=True)
+                    (tmp2_score, _) = compare_ssim(p2_crop, locd[imgnum][name], full=True, multichannel=True)
+                    p1_score += tmp1_score
+                    p2_score += tmp2_score
+                p1_score /= 20
+                p2_score /= 20
+                
+#                (p1_score, _) = compare_ssim(p1_crop, char_imgs[name], full=True, multichannel=True)
+#                (p2_score, _) = compare_ssim(p2_crop, char_imgs[name], full=True, multichannel=True)
+
                 if p1_score > best_score1:
                     best_score1 = p1_score
                     best_name1 = name
