@@ -60,7 +60,8 @@ if "https://" in vidstr or "http://" in vidstr:
 #    cap = cv.VideoCapture(videoplay.url)
 #    vidstr = urlPafy.title
     video = pytube.YouTube(vidstr)
-    stream = video.streams.get_highest_resolution()
+#    stream = video.streams.get_highest_resolution()
+    stream = video.streams.get_by_resolution("360p")
     cap = cv.VideoCapture(stream.url)
     vidstr = video.title
     safe_vidstr = stream.default_filename
