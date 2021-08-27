@@ -8,9 +8,12 @@ import sys
 import os               # for pyinstaller onefile
 from datetime import timedelta
 from skimage.metrics import structural_similarity as compare_ssim
-import pafy
-import youtube_dl
+import pytube
 import threading
+
+#import pafy
+#import youtube_dl
+
 
 # https://stackoverflow.com/questions/51060894/adding-a-data-file-in-pyinstaller-using-the-onefile-option
 def resource_path(relative_path):
@@ -102,7 +105,7 @@ def on_exit():
     root.destroy()
 
 # Auto-timestamping function        
-def divide(cap_, vidstr_, ytmode):
+def divide(cap_, vidstr_, ytmode, safe_vidstr_):
     
     global execution
     global cancel
@@ -161,7 +164,8 @@ def divide(cap_, vidstr_, ytmode):
     vs = []
     fname = ''
     if ytmode:
-        fname = vidstr_.replace('/', ' ').replace(':', ' ')+'.txt'
+        fname = os.path.splitext(safe_vidstr_)[0] + '.txt'
+#        fname = vidstr_.replace('/', ' ').replace(':', ' ')+'.txt'
     else:
         fname = os.path.basename(vidstr_+'.txt')
     f = open(resource_path('../' + fname), 'w', encoding='utf-8')
@@ -359,6 +363,7 @@ def preinit():
     global pack
     
     ytmode = True # YouTube URL
+    safe_vidstr = ''
     
     if not pack:
         debugOutput.pack(expand=True, fill='both', side=tkinter.BOTTOM)
@@ -371,10 +376,15 @@ def preinit():
     vidstr = labelText.get()
     
     if "https://" in vidstr or "http://" in vidstr:
-        urlPafy = pafy.new(vidstr)
-        videoplay = urlPafy.getbest()
-        cap = cv.VideoCapture(videoplay.url)
-        vidstr = urlPafy.title
+#        urlPafy = pafy.new(vidstr)
+#        videoplay = urlPafy.getbest()
+#        cap = cv.VideoCapture(videoplay.url)
+#        vidstr = urlPafy.title
+        video = pytube.YouTube(vidstr)
+        stream = video.streams.get_highest_resolution()
+        cap = cv.VideoCapture(stream.url)
+        vidstr = video.title
+        safe_vidstr = stream.default_filename
         ytmode = True
     else:
         cap = cv.VideoCapture(vidstr)
@@ -382,7 +392,7 @@ def preinit():
         
     if cap.isOpened():
         cancel = False
-        thrd = threading.Thread(target=divide, args=(cap, vidstr, ytmode))
+        thrd = threading.Thread(target=divide, args=(cap, vidstr, ytmode, safe_vidstr))
         thrd.start()
         execution = True
     else:

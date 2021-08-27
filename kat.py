@@ -12,11 +12,14 @@
 import cv2 as cv
 import numpy as np
 import sys
+import os
 #import pytesseract
 from datetime import timedelta
 from skimage.metrics import structural_similarity as compare_ssim
-import pafy
-import youtube_dl
+import pytube
+
+#import pafy
+#import youtube_dl
 
 debug = True
 p1_writes = 0
@@ -49,14 +52,21 @@ if len(sys.argv) != 2:
 
 vidstr = sys.argv[1]
 cap = None
+safe_vidstr = ''
 
 if "https://" in vidstr or "http://" in vidstr:
-    urlPafy = pafy.new(vidstr)
-    videoplay = urlPafy.getbest()
-    cap = cv.VideoCapture(videoplay.url)
-    vidstr = urlPafy.title
+#    urlPafy = pafy.new(vidstr)
+#    videoplay = urlPafy.getbest()
+#    cap = cv.VideoCapture(videoplay.url)
+#    vidstr = urlPafy.title
+    video = pytube.YouTube(vidstr)
+    stream = video.streams.get_highest_resolution()
+    cap = cv.VideoCapture(stream.url)
+    vidstr = video.title
+    safe_vidstr = stream.default_filename
 else:
     cap = cv.VideoCapture(vidstr)
+    safe_vidstr = vidstr
 
 cnt = 0
 crop = None
@@ -158,7 +168,8 @@ locd = np.array(locd)
 timestamps = []
 vs = []
 
-f = open(vidstr.replace('/', ' ').replace(':', ' ')+'.txt', 'w', encoding='utf-8')
+fname = os.path.splitext(safe_vidstr)[0]+'.txt'
+f = open(fname, 'w', encoding='utf-8')
 
 print(vidstr, file=f)
 print("TIMESTAMPS", file=f)
@@ -328,7 +339,7 @@ print("{} - Start".format(timedelta(seconds=0)))
 for i in range(0, len(timestamps)):
     print("{} - {}".format(timedelta(seconds=round(timestamps[i])), vs[i]))
    
-print("\nTimestamps written to '" + vidstr.replace('/', ' ').replace(':', ' ') + ".txt'")   
+print("\nTimestamps written to '" + fname + "'")   
 f.close()
 
 cap.release()
