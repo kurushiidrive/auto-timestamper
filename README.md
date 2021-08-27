@@ -8,7 +8,7 @@ You can download KAT GUI, which is the graphical-interface-based auto-timestampe
 
 ## For advanced users
 
-`kat.py` is the main source file. If you wish to run it (or any other of the Python source files), make sure you have Python 3 on your system. You can setup a virtualenv for the project through the following commands:
+`kat.py` is the main source file. If you wish to run it (or any other of the Python source files), make sure you have Python 3.6+ on your system. You can setup a virtualenv for the project through the following commands:
 
 * Clone the repo to a directory of your liking
 * `cd` into that directory
