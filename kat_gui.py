@@ -33,7 +33,9 @@ cancel = False          # flag for whether video processing has been cancelled
 
 # RVE (global)
 rve_threshold = 0.25
+print(resource_path('seed/rve.png'))
 rve_cmp = cv.imread(resource_path('seed/rve.png'))
+print(type(rve_cmp))
 
 # Load the player-side char images
 # Note that these images are all oriented wrt P2 SIDE    
